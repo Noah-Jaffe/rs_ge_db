@@ -26,7 +26,7 @@ def rs():
     print("updating RS3... testing multiprocessing")
 
 if __name__ == "__main__":
-
+  print("running")
   ready_for_updates = []
   print('dir:', os.listdir(f"{WORKSPACE}/updater/status/"))
   for fn in os.listdir(f"{WORKSPACE}/updater/status/"):
