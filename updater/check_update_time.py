@@ -1,8 +1,6 @@
 import os
 import requests
-print(os.path.abspath("."))
-
-WORKSPACE = os.getenv("WORKSPACE")
+WORKSPACE = os.path.abspath(".")
 latest = requests.get("https://api.weirdgloop.org/exchange").json()
 for k in latest:
   fn = f"{WORKSPACE}/updater/status/{k}"
