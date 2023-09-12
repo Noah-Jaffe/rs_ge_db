@@ -27,7 +27,7 @@ def rs():
 
 if __name__ == "__main__":
   ready_for_updates = []
-  for fn in os.path.listdir(f"{WORKSPACE}/updater/status/"):
+  for fn in os.listdir(f"{WORKSPACE}/updater/status/"):
     if os.path.isfile(fn):
       with open(fn, 'r') as f:
         if f.read() == "READY":
