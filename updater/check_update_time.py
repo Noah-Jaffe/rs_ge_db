@@ -12,5 +12,5 @@ for k in latest:
     quit(0)
   elif latest[k] != status:
     print(f"{k} is out of date!")
-    with open(f"{WORKSPACE}/updater/status/{k}",'r') as f:
+    with open(f"{WORKSPACE}/updater/status/{k}",'w') as f:
       f.write("READY")  # Mark as ready to start the update action
