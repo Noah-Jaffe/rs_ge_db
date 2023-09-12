@@ -1,4 +1,4 @@
-name: Check for last GE update
+name: Run updaters
 
 on:
   # Run manually from the Actions tab
