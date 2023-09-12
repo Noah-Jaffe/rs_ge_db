@@ -33,6 +33,12 @@ jobs:
           if [ "${{ steps.api_request.outputs.response }}" != "${{ steps.read_json.outputs.contents }}" ]; then
             echo "API response is different from last_update_times.json"
             # Add your desired actions here, such as sending notifications or updating the file.
+            echo "${{ steps.api_request.outputs.response }}" > ./updater/last_update_times.json
+            git config user.name "GitHub Actions"
+            git config user.email "actions@github.com"
+            git add ./updater/last_update_times.json
+            git commit -m "github actions makes a commit"
+            git push origin main
           else
             echo "API response is the same as last_update_times.json"
           fi
