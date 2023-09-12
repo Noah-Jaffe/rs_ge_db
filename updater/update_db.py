@@ -25,11 +25,11 @@ def rs():
     sleep(1)
     print("updating RS3... testing multiprocessing")
 
-
-if sys.argv[1] == "osrs":
+arg = sys.argv[1].split("/")[-1]
+if arg == "osrs":
   osrs()
-elif sys.argv[1] == "rs":
+elif arg == "rs":
   rs()
 else:
-  print(f"{sys.argv[1]} is an unsupported game mode!")
+  print(f"{arg} is an unsupported game mode!")
 
