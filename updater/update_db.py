@@ -25,7 +25,7 @@ def rs():
     sleep(1)
     print("updating RS3... testing multiprocessing")
 
-arg = sys.argv[1].split("/")[-1]
+arg = sys.argv[1].replace("\\","/").split("/")[-1]
 if arg == "osrs":
   osrs()
 elif arg == "rs":
