@@ -1,5 +1,7 @@
 import os
 import requests
+print(os.path.abspath("."))
+
 WORKSPACE = os.getenv("WORKSPACE")
 latest = requests.get("https://api.weirdgloop.org/exchange").json()
 for k in latest:
