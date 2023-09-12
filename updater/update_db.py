@@ -37,11 +37,11 @@ if __name__ == "__main__":
 
   # TODO: change to multiprocess/multithread? thats why its seperate loop? idk
   for fn in ready_for_updates:
-    if arg == "osrs":
+    if fn == "osrs":
       osrs()
-    elif arg == "rs":
+    elif fn == "rs":
       rs()
     else:
-      print(f"{arg} is an unsupported game mode!")
+      print(f"{fn} is an unsupported game mode!")
 
 
