@@ -29,12 +29,7 @@ jobs:
         
       - name: Find and Process "READY" Files 
         run: |
-          for file in updater/status/*; do
-            if [ -f "$file" ] && [ "$(cat "$file")" = "READY" ]; then
-              echo "Processing file: $file"
-              python ./updater/update_db.py "$file" &
-            fi
-          done
+          python ./updater/update_db.py
         
       - name: commit any changes from python script
         id: commit_changes
