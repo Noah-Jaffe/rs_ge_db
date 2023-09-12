@@ -12,7 +12,7 @@ def osrs():
   """
   print("updating OSRS...")
   for i in range(10):
-    sleep(1)
+    time.sleep(1)
     print("updating OSRS... testing multiprocessing")
     
 
@@ -22,7 +22,7 @@ def rs():
   """
   print("updating RS3...")
   for i in range(10):
-    sleep(1)
+    time.sleep(1)
     print("updating RS3... testing multiprocessing")
 
 arg = sys.argv[1].replace("\\","/").split("/")[-1]
