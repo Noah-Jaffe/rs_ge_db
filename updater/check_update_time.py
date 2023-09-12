@@ -1,2 +1,4 @@
+import os
 import requests
-print(requests.get("https://api.weirdgloop.org/exchange").json())
+with open(os.environ['GITHUB_OUTPUT'], 'a') as fh:
+  print(requests.get("https://api.weirdgloop.org/exchange").json(), file=fh)
