@@ -26,14 +26,16 @@ def rs():
     print("updating RS3... testing multiprocessing")
 
 if __name__ == "__main__":
-  print("running")
+
   ready_for_updates = []
   for fn in os.listdir(f"{WORKSPACE}/updater/status/"):
     if os.path.isfile(fn):
       with open(fn, 'r') as f:
-        if f.read() == "READY":
+        d = f.read().strip()
+        print(fn, d)
+        if d == "READY":
           ready_for_updates.append(fn.split("/")[-1])
-  print(ready_for_updates)
+
   # TODO: change to multiprocess/multithread? thats why its seperate loop? idk
   for fn in ready_for_updates:
     if arg == "osrs":
@@ -43,4 +45,4 @@ if __name__ == "__main__":
     else:
       print(f"{arg} is an unsupported game mode!")
 
-print("done")
+
