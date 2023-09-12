@@ -30,11 +30,9 @@ if __name__ == "__main__":
   ready_for_updates = []
   print('dir:', os.listdir(f"{WORKSPACE}/updater/status/"))
   for fn in os.listdir(f"{WORKSPACE}/updater/status/"):
-    if os.path.isfile(fn):
-      with open(fn, 'r') as f:
-        d = f.read().strip()
-        print(fn, d)
-        if d == "READY":
+    if os.path.isfile(f"{WORKSPACE}/updater/status/{fn}"):
+      with open(f"{WORKSPACE}/updater/status/{fn}", 'r') as f:
+        if f.read().strip() == "READY":
           ready_for_updates.append(fn.split("/")[-1])
 
   # TODO: change to multiprocess/multithread? thats why its seperate loop? idk
