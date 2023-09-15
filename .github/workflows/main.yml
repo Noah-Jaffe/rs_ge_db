@@ -1,0 +1,17 @@
+name: 'test on push to any branch'
+
+on:
+  push:
+    # run CodeQL on all branches on push
+    branches: ['**']
+
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    - name: run something
+      run: |
+      echo "hello world"
