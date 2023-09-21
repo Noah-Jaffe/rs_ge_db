@@ -17,11 +17,13 @@ jobs:
         id: fetch-data
         run: |
           curl -s https://prices.runescape.wiki/api/v1/osrs/latest > live_data.json
-          echo "::set-output name=live_data::$(cat previous_data.json)"
+          cat live_data.json
+          echo "::set-output name=live_data::$(cat latest_data.json)"
 
       - name: fetch last run
         id: poll-api
         run: |
+          cat latest_data.json
           echo "::set-output name=latest_data::$(cat latest_data.json)"
 
       - name: Compare Data
