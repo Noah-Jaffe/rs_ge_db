@@ -17,19 +17,13 @@ jobs:
         id: fetch-data
         run: |
           curl -s https://prices.runescape.wiki/api/v1/osrs/latest > live_data.json
-          cat live_data.json
-          echo "::set-output name=live_data::$(cat latest_data.json)"
-
-      - name: fetch last run
-        id: poll-api
-        run: |
-          cat latest_data.json
-          echo "::set-output name=latest_data::$(cat latest_data.json)"
-
+          
       - name: Compare Data
         id: compare-data
         run: |
-          if [[ "${{ steps.poll-api.outputs.current_data }}" != "${{ steps.fetch-data.outputs.previous_data }}" ]]; then
+          if cmp --silent -- "live_data.json" "latest_data.json"; then
+            echo "Data has not changed."
+          else
             echo "Data has changed. Committing to repository."
             cat live_data.json > latest_data.json
             mv live_data.json data/$(date +'%s').json
@@ -38,6 +32,4 @@ jobs:
             git add -A
             git commit -m "Update OSRS data"
             git push
-          else
-            echo "Data has not changed."
           fi
