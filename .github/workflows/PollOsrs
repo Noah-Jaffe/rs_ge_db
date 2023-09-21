@@ -1,0 +1,40 @@
+name: Poll and Commit OSRS Data
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+
+jobs:
+  poll_and_commit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Fetch Current Data
+        id: fetch-data
+        run: |
+          curl -s https://prices.runescape.wiki/api/v1/osrs/latest > live_data.json
+          echo "::set-output name=live_data::$(cat previous_data.json)"
+
+      - name: fetch last run
+        id: poll-api
+        run: |
+          echo "::set-output name=latest_data::$(cat latest_data.json)"
+
+      - name: Compare Data
+        id: compare-data
+        run: |
+          if [[ "${{ steps.poll-api.outputs.current_data }}" != "${{ steps.fetch-data.outputs.previous_data }}" ]]; then
+            echo "Data has changed. Committing to repository."
+            cat live_data.json > latest_data.json
+            mv live_data.json data/$(date +'%s').json
+            git config user.name "GitHub Actions: OSRS Poll latest"
+            git config user.email "actions@github.com"
+            git add -A
+            git commit -m "Update OSRS data"
+            git push
+          else
+            echo "Data has not changed."
+          fi
