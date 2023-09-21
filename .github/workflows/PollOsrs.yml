@@ -3,6 +3,7 @@ name: Poll and Commit OSRS Data
 on:
   schedule:
     - cron: "*/5 * * * *"
+  workflow_dispatch:
 
 jobs:
   poll_and_commit:
