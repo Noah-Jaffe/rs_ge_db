@@ -40,4 +40,4 @@ jobs:
         id: updatedata
         run: |
           echo "Data has changed. Updating wiki."
-          curl -s -X POST -H "Content-Type: application/json" -H "User-Agent: wiki user Oo00oo00oO live ge bot updater for lua access" "$wikiURL"  --data-urlencode "action=edit" --data-urlencode "format=json" --data-urlencode "bot=1" --data-urlencode "formatversion=2"  --data-urlencode "title=${wikiPageTitle}_TEST" --data-urlencode "text=${@$latestFN}" --data-urlencode "token=${wikiCSRFToken}" 
+          curl -s -X POST -H "Content-Type: application/json" -H "User-Agent: wiki user Oo00oo00oO live ge bot updater for lua access" "$wikiURL"  --data-urlencode "action=edit" --data-urlencode "format=json" --data-urlencode "bot=1" --data-urlencode "formatversion=2"  --data-urlencode "title=${wikiPageTitle}_TEST" --data-urlencode text@$latestFN --data-urlencode "token=${wikiCSRFToken}" 
