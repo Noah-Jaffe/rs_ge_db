@@ -19,11 +19,12 @@ jobs:
       - name: get latest data
         id: getlatest
         run: |
-          curl -s -X GET https://prices.runescape.wiki/api/v1/osrs/latest -o $latestFN
+          curl -X GET https://prices.runescape.wiki/api/v1/osrs/latest -o $latestFN
       - name: get current data
         id: getcurrent
         run: |
-          curl -X GET https://oldschool.runescape.wiki/?title=$wikiPageTitle&action=raw&ctype=application%2Fjson -o $currentFN
+          echo "https://oldschool.runescape.wiki/?title=$wikiPageTitle&action=raw&ctype=application%2Fjson"
+          curl -X GET "https://oldschool.runescape.wiki/?title=$wikiPageTitle&action=raw&ctype=application%2Fjson" -o $currentFN
       - name: compare data
         id: comparedata
         run: | 
