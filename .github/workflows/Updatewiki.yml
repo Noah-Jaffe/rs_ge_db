@@ -1,0 +1,45 @@
+name: Update osrs wiki page with live data
+
+on:
+  schedule:
+    
+  workflow_dispatch:
+
+
+env:
+  wikiPageTitle: Module:Sandbox/User:Oo00oo00oO/GEDBLive.json
+  latestFN: latest.json
+  currentFN: current.json
+  wikiURL: https://oldschool.runescape.wiki/w/api.php
+  wikiCSRFToken: +\\
+
+jobs:
+  poll_and_commit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: get latest data
+        id: getlatest
+        run: |
+          curl -s -X GET https://prices.runescape.wiki/api/v1/osrs/latest -o $latestFN
+      - name: get current data
+        id: getcurrent
+        run: |
+          curl -X GET https://oldschool.runescape.wiki/?title=$wikiPageTitle&action=raw&ctype=application%2Fjson -o $currentFN
+      - name: compare data
+        id: comparedata
+        run: | 
+          if cmp --silent -- "$latestFN" "$currentFN"; then
+            echo "Data has not changed."
+            exit 0
+          fi
+      - name: get wiki csrf token
+        id: getwikicsrf
+        run: |
+          wikiCSRFToken=$(curl -X GET https://oldschool.runescape.wiki/api.php?action=query&format=json&meta=tokens&formatversion=2 | jq -r '.query.tokens.csrftoken')
+      - name: update wiki with new
+        id: updatedata
+        run: |
+          echo "Data has changed. Updating wiki."
+          CONTENT = $(cat $latestFileName)
+          curl -s -X POST -H "Content-Type: application/json" -H "User-Agent: wiki user Oo00oo00oO live ge bot updater for lua access" "$wikiURL"  --data-urlencode "action=edit" --data-urlencode "format=json" --data-urlencode "bot=1" --data-urlencode "formatversion=2"  --data-urlencode "title=${wikiPageTitle}_TEST" --data-urlencode "text=${@$latestFN}" --data-urlencode "token=${wikiCSRFToken}" 
