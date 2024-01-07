@@ -20,12 +20,14 @@ jobs:
         id: getlatest
         run: |
           curl -X GET https://prices.runescape.wiki/api/v1/osrs/latest -o $latestFN
+          echo latest >>>
           cat $latestFN
       - name: get current data
         id: getcurrent
         run: |
           echo "https://oldschool.runescape.wiki/?title=$wikiPageTitle&action=raw&ctype=application%2Fjson"
           curl -X GET "https://oldschool.runescape.wiki/?title=$wikiPageTitle&action=raw&ctype=application%2Fjson" -o $currentFN
+          echo current >>
           cat $currentFN
       - name: compare data
         id: comparedata
@@ -38,9 +40,10 @@ jobs:
         id: getwikicsrf
         run: |
           wikiCSRFToken=$(curl -X GET https://oldschool.runescape.wiki/api.php?action=query&format=json&meta=tokens&formatversion=2 | jq -r '.query.tokens.csrftoken')
-          echo $wikiCSRFToken
+          echo token $wikiCSRFToken
       - name: update wiki with new
         id: updatedata
         run: |
           echo "Data has changed. Updating wiki."
-          curl --trace-ascii -v --data-urlencode action=edit --data-urlencode format=json --data-urlencode bot=1 --data-urlencode formatversion=2 --data-urlencode title=$wikiPageTitle --data-urlencode text@$latestFN --data-urlencode token=$wikiCSRFToken $wikiURL
+          curl --trace-ascii -v --data-urlencode action=edit --data-urlencode format=json --data-urlencode bot=1 --data-urlencode formatversion=2 --data-urlencode title=$wikiPageTitle --data-urlencode text@$latestFN --data-urlencode token=$wikiCSRFToken $wikiURL -o results
+          cat results
