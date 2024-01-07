@@ -40,4 +40,4 @@ jobs:
         id: updatedata
         run: |
           echo "Data has changed. Updating wiki."
-          curl --data-urlencode action=edit --data-urlencode format=json --data-urlencode bot=1 --data-urlencode formatversion=2 --data-urlencode title=$wikiPageTitle --data-urlencode text@$latestFN --data-urlencode token=$wikiCSRFToken $wikiURL
+          curl --data-urlencode action=edit --data-urlencode format=json --data-urlencode bot=1 --data-urlencode formatversion=2 --data-urlencode title=$wikiPageTitle --data-urlencode text@$latestFN --data-urlencode token=$wikiCSRFToken $wikiURL --trace-ascii
