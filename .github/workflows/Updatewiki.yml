@@ -37,9 +37,10 @@ jobs:
       - name: get wiki csrf token
         id: getwikicsrf
         run: |
-          curl -X GET https://oldschool.runescape.wiki/api.php?action=query&format=json&meta=tokens&formatversion=2 > token
+          curl -X GET https://oldschool.runescape.wiki/api.php?action=query&format=json&meta=tokens&formatversion=2 -o token
           cat token
-          echo $wikiCSRFToken
+          cat token | jq -r '.query.tokens.csrf'
+          #echo $wikiCSRFToken
       - name: update wiki with new
         id: updatedata
         run: |
